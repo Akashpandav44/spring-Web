@@ -24,7 +24,9 @@ public class StudentService implements StudentServiceImp{
 		s.setMobile(dto.getMobile());
 		s.setPassword(dto.getPassword());
 		
-		return s;
+		s.setStatus("PENDING");
+		
+		return repository.save(s);
 	}
 
 }
