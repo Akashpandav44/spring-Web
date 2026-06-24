@@ -2,7 +2,7 @@ package com.akash.student_service.Controller;
 
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.akash.student_service.Dto.LoginDto;
 import com.akash.student_service.Dto.StudentDto;
 import com.akash.student_service.Entity.Student;
 import com.akash.student_service.Service.StudentService;
@@ -52,6 +53,11 @@ public class StudentController {
 	public ResponseEntity<String> deleteStudent(@PathVariable Long id){
 		
 		return ResponseEntity.ok(service.deleteStudent(id));
+	}
+	@PostMapping("/login")
+	public ResponseEntity<Student> login(@RequestBody LoginDto dto) {
+		
+		return ResponseEntity.ok(service.login(dto));
 	}
 
 }

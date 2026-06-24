@@ -2,6 +2,7 @@ package com.akash.student_service.Service;
 
 import java.util.List;
 
+import com.akash.student_service.Dto.LoginDto;
 import com.akash.student_service.Dto.StudentDto;
 import com.akash.student_service.Entity.Student;
 
@@ -16,5 +17,7 @@ public interface StudentServiceImp {
 	Student updateStudent(Long id, StudentDto dto);
 
 	String deleteStudent(Long id);
+
+	Student login(LoginDto dto);
 
 }

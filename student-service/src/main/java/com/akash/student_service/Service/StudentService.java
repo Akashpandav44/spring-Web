@@ -6,6 +6,7 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.akash.student_service.Dto.LoginDto;
 import com.akash.student_service.Dto.StudentDto;
 import com.akash.student_service.Entity.Student;
 import com.akash.student_service.Exception.StudentNotFoundException;
@@ -69,6 +70,19 @@ public class StudentService implements StudentServiceImp{
 		repository.save(s);
 		
 		return "Student Soft Deleted Successfully";
+	}
+
+	@Override
+	public Student login(LoginDto dto) {
+		
+		Student s=repository.findByEmailAndPassword(dto.getEmail(),
+				dto.getPassword()).orElseThrow(() 
+						-> new RuntimeException("invalid Credentials"));
+		
+		if("INACTIVE".equals(s.getStatus())) {
+			throw new RuntimeException("Account is inactive");
+		}
+		return s;
 	}
 
 }
