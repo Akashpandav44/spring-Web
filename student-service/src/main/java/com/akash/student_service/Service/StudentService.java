@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.akash.student_service.Dto.LoginDto;
 import com.akash.student_service.Dto.StudentDto;
+import com.akash.student_service.Dto.StudentProfileDto;
 import com.akash.student_service.Entity.Student;
+import com.akash.student_service.Entity.StudentProfile;
 import com.akash.student_service.Exception.StudentNotFoundException;
+import com.akash.student_service.Repository.StudentProfileRepository;
 import com.akash.student_service.Repository.StudentRepository;
 
 @Service
@@ -17,6 +21,9 @@ public class StudentService implements StudentServiceImp{
 
 	@Autowired
 	private StudentRepository repository;
+	
+	@Autowired
+	private StudentProfileRepository repo;
 
 	@Override
 	public Student registerStudent(StudentDto dto) {
@@ -83,6 +90,54 @@ public class StudentService implements StudentServiceImp{
 			throw new RuntimeException("Account is inactive");
 		}
 		return s;
+	}
+
+	@Override
+	public StudentProfile create(StudentProfileDto dto) {
+		
+		StudentProfile sp=new StudentProfile();
+		
+		sp.setStudentId(dto.getStudentId());
+		sp.setFatherName(dto.getFatherName());
+		sp.setMotherName(dto.getMotherName());
+		sp.setAddress(dto.getAddress());
+		sp.setCollegeName(dto.getCollegeName());
+		sp.setBranch(dto.getBranch());
+		sp.setYear(dto.getYear());
+		sp.setAadharNumber(dto.getAadharNumber());
+		sp.setBloodGroup(dto.getBloodGroup());
+		sp.setGuardianMobile(dto.getGuardianMobile());
+		
+		return repo.save(sp);
+	}
+
+	@Override
+	public StudentProfile getById(int id) {
+		
+		return repo.findById(id).orElseThrow(() ->
+		new RuntimeException("Student Profile Information Not Found"));
+		
+	}
+
+	@Override
+	public StudentProfile updateProfile(int id, StudentProfileDto dto) {
+		
+		StudentProfile sp=repo.findById(id).orElseThrow(() ->
+		new RuntimeException("Student Profile Not found"));
+		
+		sp.setStudentId(dto.getStudentId());
+		sp.setFatherName(dto.getFatherName());
+		sp.setMotherName(dto.getMotherName());
+		sp.setAddress(dto.getAddress());
+		sp.setCollegeName(dto.getCollegeName());
+		sp.setBranch(dto.getBranch());
+		sp.setYear(dto.getYear());
+		sp.setAadharNumber(dto.getAadharNumber());
+		sp.setBloodGroup(dto.getBloodGroup());
+		sp.setGuardianMobile(dto.getGuardianMobile());
+		
+		return repo.save(sp);
+		
 	}
 
 }

@@ -12,6 +12,7 @@ public class StudentDto {
 		
 	}
 
+
 	public String getName() {
 		return name;
 	}
