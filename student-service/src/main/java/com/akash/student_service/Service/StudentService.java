@@ -121,23 +121,52 @@ public class StudentService implements StudentServiceImp{
 
 	@Override
 	public StudentProfile updateProfile(int id, StudentProfileDto dto) {
-		
-		StudentProfile sp=repo.findById(id).orElseThrow(() ->
-		new RuntimeException("Student Profile Not found"));
-		
-		sp.setStudentId(dto.getStudentId());
-		sp.setFatherName(dto.getFatherName());
-		sp.setMotherName(dto.getMotherName());
-		sp.setAddress(dto.getAddress());
-		sp.setCollegeName(dto.getCollegeName());
-		sp.setBranch(dto.getBranch());
-		sp.setYear(dto.getYear());
-		sp.setAadharNumber(dto.getAadharNumber());
-		sp.setBloodGroup(dto.getBloodGroup());
-		sp.setGuardianMobile(dto.getGuardianMobile());
-		
-		return repo.save(sp);
-		
+
+	    StudentProfile sp = repo.findById(id)
+	            .orElseThrow(() ->
+	            new RuntimeException("Student Profile Not Found"));
+
+	    if(dto.getStudentId() != null) {
+	        sp.setStudentId(dto.getStudentId());
+	    }
+
+	    if(dto.getFatherName() != null) {
+	        sp.setFatherName(dto.getFatherName());
+	    }
+
+	    if(dto.getMotherName() != null) {
+	        sp.setMotherName(dto.getMotherName());
+	    }
+
+	    if(dto.getAddress() != null) {
+	        sp.setAddress(dto.getAddress());
+	    }
+
+	    if(dto.getCollegeName() != null) {
+	        sp.setCollegeName(dto.getCollegeName());
+	    }
+
+	    if(dto.getBranch() != null) {
+	        sp.setBranch(dto.getBranch());
+	    }
+
+	    if(dto.getYear() != null) {
+	        sp.setYear(dto.getYear());
+	    }
+
+	    if(dto.getAadharNumber() != null) {
+	        sp.setAadharNumber(dto.getAadharNumber());
+	    }
+
+	    if(dto.getBloodGroup() != null) {
+	        sp.setBloodGroup(dto.getBloodGroup());
+	    }
+
+	    if(dto.getGuardianMobile() != null) {
+	        sp.setGuardianMobile(dto.getGuardianMobile());
+	    }
+
+	    return repo.save(sp);
 	}
 
 }
