@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.akash.student_service.Dto.HostelApplicationDto;
 import com.akash.student_service.Dto.LoginDto;
 import com.akash.student_service.Dto.StudentDto;
 import com.akash.student_service.Dto.StudentProfileDto;
+import com.akash.student_service.Entity.HostelApplication;
 import com.akash.student_service.Entity.Student;
 import com.akash.student_service.Entity.StudentProfile;
 import com.akash.student_service.Exception.StudentNotFoundException;
+import com.akash.student_service.Repository.HostelApplicationRepository;
 import com.akash.student_service.Repository.StudentProfileRepository;
 import com.akash.student_service.Repository.StudentRepository;
 
@@ -24,6 +27,9 @@ public class StudentService implements StudentServiceImp{
 	
 	@Autowired
 	private StudentProfileRepository repo;
+	
+	@Autowired
+	private HostelApplicationRepository hostelrepo;
 
 	@Override
 	public Student registerStudent(StudentDto dto) {
@@ -167,6 +173,19 @@ public class StudentService implements StudentServiceImp{
 	    }
 
 	    return repo.save(sp);
+	}
+
+	@Override
+	public HostelApplication create(HostelApplicationDto dto) {
+		
+		HostelApplication hp=new HostelApplication();
+		
+		hp.setApplicationId(dto.getApplicationId());
+		hp.setApplicationDate(dto.getApplicationDate());
+		hp.setStudentId(dto.getStudentId());
+		hp.setApplicationStatus("PENDING");
+		
+		return hostelrepo.save(hp);
 	}
 
 }
